@@ -1,0 +1,30 @@
+{% if album.getImages() is not empty %}
+    <a href="{{ path('profile_photos', {albumId: album.id}) }}">
+        <img src="{{ asset('uploads/images/' ~  album.getImages()[0].imagepath) }}" alt="{{ album.name }}"  
+            class="galerieimage">
+    </a>
+    <div class="row {{ album.id != albume.id ? 'actionhidden' : 'actiondisplay' }}" id="action{{ album.id }}">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn-addimage px-1 mr-2" data-toggle="modal" data-target="#editModal">
+            ed
+        </button>
+        <form action="{{ path('album_delete', {id: album.id}) }}" method="POST">
+            <button class="btn-addimage px-1">del</button>
+        </form>   
+    </div>
+
+{% else %}
+    <a href="{{ path('profile_photos', {albumId: album.id}) }}">
+        <img src="{{ asset('image/dossierVide.jpeg') }}" alt="{{ album.name }}"  
+            class="galerieimage">
+    </a>
+    <div class="row {{ album.id != albume.id ? 'actionhidden' : 'actiondisplay' }}" id="action{{ album.id }}">
+        <!-- Button trigger modal -->
+        {# <button type="button" class="btn-addimage px-1 mr-2" data-toggle="modal" data-target="#editModal">
+            ed
+        </button> #}
+        <form action="{{ path('album_delete', {id: album.id}) }}" method="POST">
+            <button class="btn-addimage px-1">del</button>
+        </form>   
+    </div>
+{% endif %}

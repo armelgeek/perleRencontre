@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+{% block stylesheets %}
+<style type="text/css">
+    .couverture{
+        width: 100%;
+        height: 300px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+    }
+   
+    .couverture-operation{
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+    }
+    .btn-operation{
+        margin-left:20px; 
+    }
+
+ 
+</style>
+<link rel="manifest" href="{{ asset('css/jquery.Jcrop.min.css') }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div  class="couverture" style="background-image: url('{{ vich_uploader_asset(pdc,'imageFile')}}');
+    background-position: top center;background-size: cover;
+    background-color: green">
+        <div class="couverture-operation">
+        <button type="button" class="btn btn-primary btn-modal" data-toggle="modal" data-target="#covertureModal">
+          Changer la photo de couverture
+        </button>
+        <button type="button" class="btn btn-primary btn-operation">
+          ...
+        </button>
+        </div>
+    </div>
+    <div class="container mt-4" style="width: 1240px!important">
+        <div class="row">
+             <div class="col-lg-3 ">
+               <div class="card p-2">
+               <h5>Mon profil</h5>
+               <div class="text-center mt-4" id="profile">
+                    <img src="" width="120" height="120"  class="rounded-circle">
+                    <h5 class="mt-2">{{user.username | capitalize }}</h5>
+                    <p>{{user.id}}</p>
+                    <div class="bg-light d-flex justify-content-around">
+                        <div class="age">
+                            <div>
+                               <h5>Age</h5>
+                               <p></p>
+                            </div>
+                        </div>
+                        <div class="sexe">
+                            <div>
+                               <h5>Sexe</h5>
+                               <p>{{user.genre}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                               <h5>Ville</h5>
+                               <p></p>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+               </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="card p-4"> 
+                     {{ include('domain/utilisateur/envie_du_jour.html.twig') }}
+                </div>
+                <nav>
+                <div class="nav nav-tabs mt-4" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-apropos-tab" data-toggle="tab" href="#nav-apropos" role="tab" aria-controls="nav-apropos" aria-selected="true">A propos</a>
+                   <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ses photos</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Ses videos</a>
+                </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                     <div class="tab-pane fade show active" id="nav-apropos" role="tabpanel" aria-labelledby="nav-apropos-tab">
+                        {{ include('domain/utilisateur/apropos/description.html.twig') }} 
+                        {{ include('domain/utilisateur/apropos/mon-physique.html.twig') }} 
+                     </div>
+                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            {{ include('domain/utilisateur/photos/index.html.twig') }}
+                     </div>
+                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                         {{ include('domain/utilisateur/video/index.html.twig') }}
+                     </div>
+                </div>
+                  {#  <button type="button" class="btn btn-danger" id="toogle-ajouter-envie-du-jour" onclick="showFormAddEnvieDuJour()">Ajouter</button>#}
+             {#  {% if avoirEnvie==true %} #}
+                   
+                 
+          {# {% endif%}#}
+             </div>
+             <div class="col-lg-3">
+                <div class="card mb-4">
+                    <div class="card-title">Mes amis</div>
+                </div>
+                 <div class="card p-4" >
+                    <p class="card-title">Mes Photos  <button class="btn-addimage" data-toggle="modal" data-target="#imageModal">+</button>
+                    </p>
+                             
+                     {{ include('domain/utilisateur/photos/last_image.html.twig') }}
+
+                </div>
+                <div class="card p-4 mt-2" >
+                    <p class="card-title">Mes videos  <button class="btn-addimage" data-toggle="modal" data-target="#videoModal">+</button>
+                    </p>
+                             
+                     {{ include('domain/utilisateur/photos/last_image.html.twig') }}
+
+                </div>
+             </div>
+        </div>
+
+    </div>
+    {{ include('domain/utilisateur/changer_photo_de_couverture.html.twig') }}
+{% endblock %}
+{% block javascripts%}
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.Jcrop.min.js')}}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script type="text/javascript">
+function showFormAddEnvieDuJour(){
+    document.getElementById('form-toogle-envie-du-jour').style="display:block";
+    document.getElementById('value-toogle-envie-du-jour').style="display:none";
+   // document.getElementById('form-toogle-envie-du-jour');
+}
+function showFormEnvieDuJour(){
+    document.getElementById('form-toogle-envie-du-jour').style="display:block";
+    document.getElementById('value-toogle-envie-du-jour').style="display:none";
+   // document.getElementById('form-toogle-envie-du-jour');
+}
+function showValueEnvieDuJour(){
+      document.getElementById('form-toogle-envie-du-jour').style="display:none";
+    document.getElementById('value-toogle-envie-du-jour').style="display:block";
+}
+
+
+
+function showFormDescription(){
+    document.getElementById('form-toogle-description').style="display:block";
+    document.getElementById('value-toogle-description').style="display:none";
+   // document.getElementById('form-toogle-envie-du-jour');
+}
+function showValueDescription(){
+      document.getElementById('form-toogle-description').style="display:none";
+    document.getElementById('value-toogle-description').style="display:block";
+}
+
+
+
+function showFormMonPhysique(){
+    document.getElementById('form-toogle-mon-physique').style="display:block";
+    document.getElementById('value-toogle-mon-physique').style="display:none";
+   // document.getElementById('form-toogle-envie-du-jour');
+}
+function showValueMonPhysique(){
+      document.getElementById('form-toogle-mon-physique').style="display:none";
+    document.getElementById('value-toogle-mon-physique').style="display:block";
+}
+
+
+</script>
+{% endblock %}

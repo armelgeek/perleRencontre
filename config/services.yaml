@@ -3,7 +3,8 @@ parameters:
     faker_locale: 'en_GB'
     app_locales: ['fr', '%locale%']
     app_locales_regex: 'fr|%locale%'
-
+    image_directory: '%kernel.project_dir%/public/uploads/images'
+    video_directory: '%kernel.project_dir%/public/uploads/videos'
 services:
     _defaults:
         autowire: true
@@ -16,18 +17,15 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
-
-    # Aliases to TimeContinuum
-    app.earth:
-        class: Innmind\TimeContinuum\TimeContinuum\Earth
-    app.format:
-        class: Innmind\TimeContinuum\Format\ISO8601
-
-    # Creating a service with TimeContinuum
-    App\Service\GlobalClock:
-        arguments:
-            $clock: '@app.earth'
-            $format: '@app.format'
-
-    App\Listener\AuthenticationListener:
-        tags: ['kernel.event_listener']
+    App\EventSubscriber\LocaleSubscriber:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+    App\Serializer\FormExceptionNormalizer:
+        tags: ['serializer.normalizer']
+    
+    App\Factory\NormalizerFactory:
+        arguments: [!tagged serializer.normalizer]
+        public: true

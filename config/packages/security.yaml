@@ -2,12 +2,8 @@ security:
     encoders:
         App\Entity\User:
             algorithm: auto
-
-    providers:
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+        App\Entity\Utilisateur:
+            algorithm: auto
 
     firewalls:
         dev:
@@ -15,20 +11,17 @@ security:
             security: false
         main:
             anonymous: lazy
-            logout:
-                path: app_security_logout
-                target: app_index
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
-            remember_me:
-                secret:   '%kernel.secret%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
+                    - App\Security\Authenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
-    access_control:
-          - { path: ^/user, roles: ROLE_USER }
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Utilisateur
+                property: username

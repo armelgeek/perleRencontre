@@ -6,18 +6,3 @@ import '../scss/app.scss';
 import $ from 'jquery';
 import 'bootstrap'
 import '@fortawesome/fontawesome-free'
-
-// Example importing a function from greet.js
-// (the .js extension is optional)
-import greet from './greet';
-
-$(document).ready(function () {
-    // Bootstrap JS dependency
-    $('[data-toggle="popover"]').popover();
-
-    // Always show Bootstrap modal for flash messages
-    $('.modal').modal('show');
-
-    // Using others into this one
-    console.log(greet('Github User'));
-});

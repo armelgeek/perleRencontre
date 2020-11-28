@@ -2,23 +2,29 @@
 <html lang="{{ app.request.locale }}">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="author" content="Gaëtan Rolé-Dubruille">
+    <meta name="author" content="Perle rencontre">
     <meta name="description" content="{% block description 'base.head.meta.description'|trans %}">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
+    <meta name="turbolinks-cache-control" content="no-cache"/>
     <meta property="og:image" content="{% block og_image '' %}">
     <meta property="og:title" content="Starter - {% block og_title 'base.head.meta.title'|trans %}">
     <meta property="og:description" content="{% block og_description 'base.head.meta.description'|trans %}">
 
-    <title>Starter - {% block title 'base.head.meta.title'|trans %}</title>
-
+    <title>Perle Rencontre - {% block title 'base.head.meta.title'|trans %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
     {{ encore_entry_link_tags('app') }}
 
     {% block stylesheets %}
     {% endblock %}
-
+    <style type="text/css">
+      .turbolinks-progress-bar {
+                height: 5px;
+                background: #fff;
+            }
+    </style>
     {{ include('_favicons.html.twig', with_context = false) }}
 </head>
 <body>
@@ -27,6 +33,7 @@
         {{ include('_header.html.twig', with_context = false) }}
     {%- endblock %}
 </header>
+
 <main id="main">
     {{ include('_flash_messages.html.twig', with_context = false) }}
     <div {% block content_tag_attributes '' %}>
@@ -40,9 +47,11 @@
     {%- endblock -%}
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpic kr"></script>
 {{ encore_entry_script_tags('app') }}
+<script src="{{ asset('js/turbolinks.js') }}"></script>
 
-{% block javascripts -%}
+{% block javascripts %}
 {% endblock %}
 </body>
 </html>

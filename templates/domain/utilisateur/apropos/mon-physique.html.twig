@@ -1,0 +1,42 @@
+
+<div style="position: relative" class="mt-4">
+<div id="form-toogle-mon-physique" style="display: none;">
+       {{ form_start(formMonPhysique) }}
+           {{ form_row(formMonPhysique) }}
+                <input type="submit"  value="Enregister">
+            <input type="button" value="Annuler" onclick="showValueMonPhysique()">
+        {{ form_end(formMonPhysique) }}
+       
+        
+    </div>
+    <div id="value-toogle-mon-physique" style="display: block">
+        <div class="row">
+            <div class="col-lg-3">
+                <h5>Age</h5>
+                <p> {% if user.age!=null  %}{{user.age}}{% else %} {% endif%} ans</p>
+            </div>
+             <div class="col-lg-3">
+                <h5>Couleur de cheveux</h5>
+                {% for cdc in user.couleurDeCheveux %}
+                    {% if cdc == "COULEUR_DES_CHEVEUX_NOIR" %}
+                        <p>Noir</p>
+                    {% elseif cdc == "COULEUR_DES_CHEVEUX_BLEU" %}
+                        <p>bleu</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-3">
+                <h5>Dégaine</h5>
+                {% for degaine in user.degaine %}
+                    {% if degaine == "DEGAINE_BAD_BAY" %}
+                        <p>Bad boy</p>
+                  {#  {% elseif degaine == "COULEUR_DES_CHEVEUX_BLEU" %}
+                        <p>bleu</p>#}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <button style="position: absolute;top: 5px;right: 5px" class="btn-addimage px-1"  id="toogle-modifier-mon-physique" onclick="showFormMonPhysique()">+</button>        
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="carousel-item {{ active }}">
+    <img src="{{ asset('uploads/images/' ~  image.imagepath) | imagine_filter('rectangle') }}" alt="image.title" class="imageslide"
+        onmouseover="document.getElementById('action{{ image.id }}').className= 'operationdisplay'">
+    <form action="{{ path('photos_delete', {id: image.id}) }}" method="POST" 
+        class="actionhidden" id="action{{ image.id }}"
+        onmouseover="this.className= 'operationdisplay'"
+        onmouseout="this.className= 'actionhidden'">
+        <button class="btn-addimage px-1">del</button>
+    </form> 
+
+    <div class="inline">
+        <div class="titlephotos align-self-end">
+            <span>{{ image.title }}</span>
+        </div>
+        <div class="datephotos">
+            <span>Ajouté il y a 2 jours</span>
+        </div>
+    </div>
+
+    <div class="descriptionphotos">
+        <p>{{ image.description }}</p>
+    </div>
+
+    {% if comment %}
+    <div class="vectordiv row">
+        <div class="vectorphotos">
+            <p class="vectornumber m-0">153</p>
+            <img src="{{ asset('image/vector.svg') }}" alt="">
+        </div>
+        <div class="verticalbar"></div>
+        <div class="commentphotos">
+            <p class="vectornumber m-0">4</p>
+            <img src="{{ asset('image/comment.svg') }}" alt="">
+        </div>
+        <div class="verticalbar"></div>
+        <div class="visitphotos">
+            <p class="vectornumber m-0">121</p>
+            <p class="visittext m-0">Visites</p>
+        </div>
+    </div>
+
+    <div class="commentdiv">
+        <p class="m-0 commenttext">Les commentaires...</p>
+        <div class="row">
+            <div class="col-1">
+                <img src="{{ asset('image/linda.svg') }}" alt="linda">
+            </div>
+            <div class="col">
+                <p class="commenttext m-0">Linda Katty</p>
+                <p class="datecomment m-0">Il y a 2s</p>
+            </div>
+        </div>
+        <p class="contentcomment">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel hendrerit lacus. 
+            Etiam mauris velit, interdum id fringilla sed, dictum id velit. 
+            Phasellus pretium mattis sapien vel consequat. Praesent nec aliquet turpis.
+        </p>
+
+        <form action="">
+            <input type="text" name="comment" class="commenttext" placeholder="Ajouter un commentaire...">
+            <button class="commenttext">Commenter</button>
+        </form>
+    </div>
+    {% endif %}
+</div>

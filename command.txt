@@ -1,0 +1,4 @@
+
+ php bin/console translation:update --dump-messages fr
+ php bin/console translation:update --force fr
+ php bin/console translation:update --help

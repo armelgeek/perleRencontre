@@ -1,0 +1,76 @@
+<video src="{{ asset('uploads/videos/' ~  video.videopath) }}" controls width="661" height="314" class="videoplay">
+    Le navigateur ne prend pas en charge ce type de vidéo
+</video>
+
+<div class="inline">
+    <div class="titlephotos align-self-end">
+        <span>{{ video.title }}</span>
+    </div>
+    <div class="datephotos">
+        <span>Ajouté il y a 2 jours</span>
+    </div>
+</div>
+
+<div class="descriptionphotos">
+    <p>{{ video.description }}</p>
+</div>
+
+{% if comment %}
+    <div class="vectordiv row">
+        <div class="vectorphotos">
+            <p class="vectornumber m-0">153</p>
+            <img src="{{ asset('image/vector.svg') }}" alt="">
+        </div>
+        <div class="verticalbar"></div>
+        <div class="commentphotos">
+            <p class="vectornumber m-0">4</p>
+            <img src="{{ asset('image/comment.svg') }}" alt="">
+        </div>
+        <div class="verticalbar"></div>
+        <div class="visitphotos">
+            <p class="vectornumber m-0">121</p>
+            <p class="visittext m-0">Visites</p>
+        </div>
+    </div>
+
+    <div class="commentdiv">
+        <p class="m-0 commenttext">Les commentaires...</p>
+        {% for comment in video.comments %}
+            <p class="commenttext m-0">{{  comment.commenter.username }}</p>
+
+            <p class="contentcomment">{{  comment.description }}</p>
+        {% endfor %}
+
+        {{ form_start(form_comment, {'action': path('profiles_video', {user: user.id, id: video.id}) }) }}
+            <div class="row">
+                {{ form_widget(form_comment.description, {'attr': {'class': 'commenttext', 'value': ''} }) }}
+                <button class="commenttext commentbutton ml-2" type="submit">Commenter</button>
+            </div>
+        {{form_end(form_comment)}}
+    </div>
+{% endif %}
+
+<div class="videolist">
+    <p class="autres-videos p-0">Autres vidéos</p>
+    <div class="row">
+        {% for v in user.videos %}
+            {% if v.privat == video.privat %}
+            <div>
+                <a href="{{ path('profiles_video', {user:user.id, id: v.id}) }}" class="mr-1">
+                    <video src="{{ asset('uploads/videos/' ~  v.videopath) }}" width="127" height="100">
+                        Le navigateur ne prend pas en charge ce type de vidéo
+                    </video>
+                </a>
+                {% if app.user and app.user.id == user.id %}
+                    <div class="row {{ v.id != videoplay.id ? 'actionhidden' : 'videodisplay' }}" id="action{{ v.id }}">
+                            <!-- Button trigger modal -->
+                            <form action="{{ path('delete_video', {user:user.id, id: v.id}) }}" method="POST">
+                                <button class="btn-addimage px-1">del</button>
+                            </form>   
+                    </div>
+                {% endif %}
+            </div>
+            {% endif %}   
+        {% endfor %}
+    </div>
+</div>

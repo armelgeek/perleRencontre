@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{# You can replace other parent blocks @see '../base.html.twig' #}
+{% block description 'default.index.head.meta.description'|trans %}
+{% block title 'default.index.head.meta.title'|trans %}
+
+{% block og_title 'default.index.head.meta.title'|trans %}
+{% block og_description 'default.index.head.meta.description'|trans %}
+
+{% block content_tag_attributes 'id="Langues"' %}
+
+{% block content %}
+    {{ 'homepage.index'|trans }}
+{% endblock %}

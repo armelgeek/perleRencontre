@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{# You can replace other parent blocks @see '../base.html.twig' #}
+{% block description 'default.index.head.meta.description'|trans %}
+{% block title 'default.index.head.meta.title'|trans %}
+
+{% block og_title 'default.index.head.meta.title'|trans %}
+{% block og_description 'default.index.head.meta.description'|trans %}
+
+{% block content_tag_attributes 'id="Inscription"' %}
+
+{% block content %}
+        {{ form_start(form) }}
+    <div class="container my-5">
+    <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-6 mx-auto">
+                <h2 class="card-title text-center">Créer un compte</h2>
+                <div class="card card-signin">
+                    <div class="card-body">
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.password.first) }}
+                        {{ form_row(form.password.second) }}
+                        {{ form_row(form.genre) }}
+                        {{ form_row(form.jeCherche) }}
+                        {{ form_row(form.date_naissance) }}
+                        {{ form_row(form.adresse) }}
+                  {#      {{ form_row(form.photo) }}#}
+                    {#    {{ form_row(form.certifie) }}
+                        {{ form_row(form.conditionGenerale) }}
+                        {{ form_row(form.conditionVente) }}
+                        <p class="lead mt-2">
+                        En cochant cette case, je donne l’ordre de ne pas m’envoyer de mail provenant du monde rencontre love. J’autorise seulement la réception de mail pour la confirmation de mon compte et pour la réinitialisation ou le changement de mon mot de passe.
+                        </p>
+                #}        
+                       
+                        <div class="mt-2">
+                            <button class="btn  btn-primary btn-block" type="submit">
+                                Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        flatpickr(".js-datepicker", {});
+   /*     flatpickr(".datetimepicker", {
+      locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['dim', 'lun', 'mar', 'mer', 'jeu', 'ven', 'sam'],
+          longhand: ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi']
+        },
+        months: {
+          shorthand: ['janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'],
+          longhand: [
+            'janvier',
+            'février',
+            'mars',
+            'avril',
+            'mai',
+            'juin',
+            'juillet',
+            'août',
+            'septembre',
+            'octobre',
+            'novembre',
+            'décembre'
+          ]
+        },
+        ordinal (nth) {
+          if (nth > 1) {
+            return ''
+          }
+          return 'er'
+        },
+        rangeSeparator: ' au ',
+        weekAbbreviation: 'Sem',
+        scrollTitle: 'Défiler pour augmenter la valeur',
+        toggleTitle: 'Cliquer pour basculer',
+        time_24hr: true
+      },
+      altFormat: 'd F Y H:i',
+      dateFormat: 'Y-m-d H:i:s',
+      altInput: true,
+      enableTime: true,
+      defaultHour: this.getAttribute('hour')
+    })*/
+    </script>
+{% endblock %}

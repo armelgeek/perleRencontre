@@ -11,7 +11,7 @@
       </trans-unit>
       <trans-unit id="pBzFd7q" resname="form.user.firstname.placeholder">
         <source>form.user.firstname.placeholder</source>
-        <target>__form.user.firstname.placeholder</target>
+        <target>Placeholder</target>
       </trans-unit>
       <trans-unit id="KmGo6VI" resname="form.user.lastname.label">
         <source>form.user.lastname.label</source>

@@ -1,0 +1,242 @@
+/*!
+ * bsStepper v1.7.0 (https://github.com/Johann-S/bs-stepper)
+ * Copyright 2018 - 2019 Johann-S <johann.servoire@gmail.com>
+ * Licensed under MIT (https://github.com/Johann-S/bs-stepper/blob/master/LICENSE)
+ */
+/*# sourceMappingURL=bs-stepper.min.css.map */
+.bs-stepper {
+	.step-trigger {
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-ms-flex-align: center;
+		align-items: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		padding: 20px;
+		font-size: 1rem;
+		font-weight: 700;
+		line-height: 1.5;
+		color: #6c757d;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-color: transparent;
+		border: none;
+		border-radius: .25rem;
+		transition: background-color .15s ease-out,color .15s ease-out;
+		&:not(:disabled) {
+			&:not(.disabled) {
+				cursor: pointer;
+			}
+		}
+		&:disabled {
+			pointer-events: none;
+			opacity: .65;
+		}
+		&:focus {
+			color: #007bff;
+			outline: 0;
+		}
+		&:hover {
+			text-decoration: none;
+			background-color: rgba(0,0,0,.06);
+		}
+	}
+	.step-trigger.disabled {
+		pointer-events: none;
+		opacity: .65;
+	}
+	.line {
+        width: 75px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+.l {
+    background: linear-gradient(to right, #05FBFF, #1E00FF) !important;
+}
+	}
+	.content {
+		&:not(.fade) {
+			display: none;
+		}
+	}
+	.content.fade {
+		visibility: hidden;
+		transition-duration: .3s;
+		transition-property: opacity;
+	}
+	.content.fade.active {
+		visibility: visible;
+		opacity: 1;
+	}
+	.content.active {
+		&:not(.fade) {
+			display: block;
+			visibility: visible;
+		}
+	}
+	.content.dstepper-block {
+		display: block;
+	}
+	&:not(.vertical) {
+		.bs-stepper-pane.dstepper-none {
+			display: none;
+		}
+		.content.dstepper-none {
+			display: none;
+		}
+	}
+}
+.bs-stepper-label {
+	display: inline-block;
+	margin: .25rem;
+}
+.bs-stepper-header {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.bs-stepper-line {
+	-ms-flex: 1 0 32px;
+	flex: 1 0 32px;
+	min-width: 1px;
+	min-height: 1px;
+	margin: auto;
+	background-color: rgba(0,0,0,.12);
+}
+.bs-stepper-circle {
+width: 75px;
+height: 75px;
+background: rgba(6, 39, 117, 0.25);
+font-size: 20px;
+padding: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 100%;
+background: linear-gradient(to right, #05FBFF, #1E00FF) !important;
+div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: block;
+    border-radius: 50%;
+    p {
+    position: absolute;
+    width: 15px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+}
+.check {
+    width: 28px;
+    height: 14px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(-45deg) translate(0%, -100%);
+}
+}
+.active {
+	.bs-stepper-circle {
+		background-color: #007bff;
+	}
+}
+.bs-stepper-content {
+	padding: 0 20px 20px;
+}
+.bs-stepper.vertical {
+	display: -ms-flexbox;
+	display: flex;
+	.bs-stepper-header {
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-ms-flex-align: stretch;
+		align-items: stretch;
+		margin: 0;
+	}
+	.bs-stepper-pane {
+		display: block;
+		&:not(.fade) {
+			display: block;
+			visibility: hidden;
+		}
+	}
+	.content {
+		display: block;
+		&:not(.fade) {
+			display: block;
+			visibility: hidden;
+		}
+	}
+}
+.bs-stepper-pane {
+	&:not(.fade) {
+		display: none;
+	}
+}
+.bs-stepper-pane.fade {
+	visibility: hidden;
+	transition-duration: .3s;
+	transition-property: opacity;
+}
+.bs-stepper-pane.fade.active {
+	visibility: visible;
+	opacity: 1;
+}
+.bs-stepper-pane.active {
+	&:not(.fade) {
+		display: block;
+		visibility: visible;
+	}
+}
+.bs-stepper-pane.dstepper-block {
+	display: block;
+}
+.vertical {
+	.bs-stepper-pane.fade.dstepper-none {
+		visibility: hidden;
+	}
+	.content.fade.dstepper-none {
+		visibility: hidden;
+	}
+}
+@media (max-width:520px) {
+	.bs-stepper {
+		.step-trigger {
+			-ms-flex-direction: column;
+			flex-direction: column;
+			padding: 10px;
+		}
+	}
+	.bs-stepper-header {
+		margin: 0 -10px;
+		text-align: center;
+	}
+	.bs-stepper-content {
+		padding: 0;
+	}
+}
+@media (max-width:400px) {
+	.bs-stepper {
+		.line {
+			-ms-flex-preferred-size: 20px;
+			flex-basis: 20px;
+		}
+	}
+	.bs-stepper-line {
+		-ms-flex-preferred-size: 20px;
+		flex-basis: 20px;
+	}
+}

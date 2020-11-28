@@ -1,0 +1,15 @@
+    <div class="container-fluid">
+        <div class="row">
+ {% for v in lastVideos %}
+        {% if v.privat == false %}
+            <div>
+                <a href="{{ path('profiles_video', {user:user.id, id: v.id}) }}" class="mr-1">
+                    <video src="{{ asset('uploads/videos/' ~  v.videopath) }}" width="60" height="60">
+                        Le navigateur ne prend pas en charge ce type de vidéo
+                    </video>
+                </a>
+            </div>
+        {% endif %}   
+{% endfor %}
+        </div>
+    </div>

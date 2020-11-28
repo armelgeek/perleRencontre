@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PhotosController!{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bootstrap.min.css') }}" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="my-photos">
+    <ul class="nav nav-tabs" id="photosTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link " id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="true">Photos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" id="private-photos-tab" data-toggle="tab" href="#private-photos" role="tab" aria-controls="private-photos" aria-selected="false">Photos Privées</a>
+        </li>
+        <li class="align-self-center" id="addimage">
+            <button class="btn-addimage" data-toggle="modal" data-target="#imageModal">+</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="imageModalLabel">Création d'un photo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{ form(formImage) }}
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </li>
+    </ul>
+    <div class="tab-content tab-photo" id="photosTabContent">
+        <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab">
+            <div id="photoslide" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                {% set active = "active" %}
+                {% set found = false %}
+
+                {% if albume.id != 0 %}
+                    {% for image in albume.getImages() %}
+                        {% if albume.privat == 0 %}
+                            {{ include('profiles/photos/_photos.html.twig', {image: image, active: active, comment: true}) }}
+                            {% set active = "" %}
+                            {% set found = true %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% for album in albums %}
+                        {% for image in album.getImages() %}
+                            {{ include('profiles/photos/_photos.html.twig', {image: image, active: active, comment: true}) }}
+                            {% set active = "" %}
+                            {% set found = true %}
+                        {% endfor %} 
+                    {% endfor %}  
+                {% endif %}
+
+                </div>
+                {% if  found %}
+                <a class="carousel-control-prev" href="#photoslide" role="button" data-slide="prev">
+                    <span class="prev-icon" aria-hidden="true"><span class="chevron-left">&lt;</span></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#photoslide" role="button" data-slide="next">
+                    <span class="next-icon" aria-hidden="true"><span class="chevron-left">&gt;</span></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="private-photos" role="tabpanel" aria-labelledby="private-photos-tab">
+            <div id="photoprivateslide" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner">
+                    {% set active = "active" %}
+                    {% set found = false %}
+
+                    {% if albume.id != 0 %}
+                        {% if albume.privat != 0 %}
+                            {% for image in albume.getImages() %}
+                                {{ include('profiles/photos/_photos.html.twig', {image: image, active: active, comment: false}) }}
+                                {% set active = "" %}
+                                {% set found = true %}
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        {% for album in albumsp %}
+                                {% for image in album.getImages() %}
+                                    {{ include('profiles/photos/_photos.html.twig', {image: image, active: active, comment: false}) }}
+                                    {% set active = "" %}
+                                    {% set found = true %}
+                                {% endfor %}
+                        {% endfor %}  
+                    {% endif %}
+                </div>
+                {% if found %}
+                <a class="carousel-control-prev" href="#photoprivateslide" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#photoprivateslide" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="galleriediv">
+        <p id="gallerietitle">Gallerie</p>
+        <div class="row">
+            {% for album in albums %}
+                <div>
+                    {{ include('profiles/photos/_photos_gallerie.html.twig', {album: album}) }}
+                </div>
+            {% endfor %}
+            {% for album in albumsp %}
+                <div>
+                    {{ include('profiles/photos/_photos_gallerie.html.twig', {album: album}) }} 
+                </div>
+            {% endfor %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Modification d'un album</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            {{ form(formEdit) }}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" id="addAlbum" class="btn-addimage" data-toggle="modal" data-target="#exampleModal">
+            +
+        </button>
+
+  
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Création d'un album</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form(formAlbum) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

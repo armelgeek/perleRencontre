@@ -1,0 +1,15 @@
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+    filter_sets:
+        rectangle:
+            filters:
+                fixed:
+                    width: 661
+                    height: 314
+
+        resize:
+            filters:
+                relative_resize:
+                    heighten: 314

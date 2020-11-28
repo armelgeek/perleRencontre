@@ -1,0 +1,10 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        pdp:
+            uri_prefix: /images/pdp
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+            upload_destination: '%kernel.project_dir%/public/images/pdp'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

@@ -1,0 +1,16 @@
+<div style="position: relative" class="mt-4">
+ <h4>Description</h4>
+<div id="form-toogle-description" style="display: none;">
+       {{ form_start(formDescription) }}
+           {{ form_row(formDescription.description) }}
+                <input type="submit"  value="Enregister">
+            <input type="button" value="Annuler" onclick="showValueDescription()">
+        {{ form_end(formDescription) }}
+       
+        
+    </div>
+    <div id="value-toogle-description" style="display: block">
+        {% if user.description!=null  %}{{user.description}}{% else %} ---- {% endif%}
+        <button style="position: absolute;top: 5px;right: 5px" class="btn-addimage px-1"  id="toogle-modifier-description" onclick="showFormDescription()">+</button>        
+    </div>
+</div>

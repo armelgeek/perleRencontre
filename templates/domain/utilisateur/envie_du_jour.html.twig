@@ -1,0 +1,15 @@
+ <h4>Envie du jour</h4>
+    <div id="form-toogle-envie-du-jour" style="display: none;">
+        {{ form_start(formEnvieDuJour) }}
+           {{ form_row(formEnvieDuJour.envie_du_jour) }}
+            <input type="submit"  value="Enregister">
+            <input type="button" value="Annuler" onclick="showValueEnvieDuJour()">
+        {{ form_end(formEnvieDuJour) }}
+    </div>
+    <div id="value-toogle-envie-du-jour" style="display: block">
+        {% if avoirEnvie==true %}
+        {{ envieDuJour.envieDuJour }}
+        {{ envieDuJour.dateDuJour | date }}
+        {% endif%}
+        <button style="position: absolute;top: 5px;right: 5px" class="btn-addimage px-1"  id="toogle-modifier-envie-du-jour" onclick="showFormEnvieDuJour()">+</button>        
+    </div>

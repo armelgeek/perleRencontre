@@ -41,3 +41,7 @@ npm-debug.log
 /public/build/
 /assets/css
 ###< symfony/webpack-encore-bundle ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
