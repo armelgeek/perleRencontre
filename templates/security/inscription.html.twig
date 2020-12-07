@@ -1,0 +1,257 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte
+{% endblock %}
+
+{% block stylesheets %}
+	<style type="text/css">
+		.interior a {
+			text-decoration: none;
+			cursor: pointer;
+		}
+		.interior a {
+			border: none;
+			width: 203px;
+			height: 35px;
+			cursor: pointer;
+			color: white;
+			background: linear-gradient(90deg, #0A2B6B 11.53%, #1E6A90 58.35%, #676A6E 116.07%);
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
+	<script type="text/javascript">
+		if (document.querySelector('.bs-stepper')) {
+
+window.stepper = new Stepper(document.querySelector('.bs-stepper'), {
+linear: false,
+animation: true
+});
+}
+	</script>
+{% endblock %}
+{% block body %}
+
+
+	<div class="perle-stepper">
+		<div id="stepper2" class="bs-stepper vertical">
+			<div class="bs-stepper-header">
+				<div class="bs-stepper-title">
+					<div class="top">
+						<p class="left">S'incrire sur
+						</p>
+						<p class="right">Rencontre Love</p>
+					</div>
+					<div class="buttom">
+						Inscrivez-vous pour commencer l'aventure
+					</div>
+				</div>
+				<div class="step" style="margin-top: 25px;" data-target="#step-perle-1">
+					<button type="button" class="btn step-trigger">
+						<span class="bs-stepper-circle">1</span>
+						<span class="bs-stepper-label">Simple formalité.<br>
+							<small>Nous avons besoin en savoir plus sur vous.</small>
+						</span>
+					</button>
+
+				</div>
+				<div class="line"></div>
+				<div class="step" data-target="#step-perle-2">
+					<button type="button" class="btn step-trigger">
+						<span class="bs-stepper-circle">2</span>
+						<span class="bs-stepper-label">Votre profil.<br>
+							<small>Decrivez nous votre profil.</small>
+						</span>
+					</button>
+				</div>
+				<div class="line"></div>
+				<div class="step" data-target="#step-perle-3">
+					<button type="button" class="btn step-trigger">
+						<span class="bs-stepper-circle">3</span>
+						<span class="bs-stepper-label">Votre adresse.<br>
+							<small>Dit nous en plus sur localisation.</small>
+						</span>
+					</button>
+				</div>
+				<div class="line"></div>
+				<div class="step" data-target="#step-perle-4">
+					<button type="button" class="btn step-trigger">
+						<span class="bs-stepper-circle">4</span>
+						<span class="bs-stepper-label">Finalisation.<br>
+							<small>Finalison votre inscription sur Libertin.</small>
+						</span>
+					</button>
+				</div>
+			</div>
+			<div class="bs-stepper-content">
+				{{ form_start(form,{'attr':{'class':'form-group'}}) }}
+
+				{% form_theme form _self %}
+				{% use 'form_div_layout.html.twig' with choice_widget as base_choice_widget %}
+				<div id="step-perle-1" class="content">
+					<p class="text-center">S'inscrire avec:</p>
+					<div class="social-log-in">
+						<button class="facebook">Facebook</button>
+						<button class="google">Google</button>
+					</div>
+					<div class="ou">
+						<p class="ligne"></p>
+						<p class="text">ou</p>
+						<p class="ligne"></p>
+					</div>
+					<div class="field">
+						{{ form_row(form.username,{'attr':{'placeholder':'Changer votre pseudo'}}) }}
+						{{ form_errors(form.username) }}
+					</div>
+					<div class="field">
+						{{ form_row(form.email,{'attr':{'placeholder':'Entrer votre adresse e-mail'}}) }}
+						{{ form_errors(form.email) }}
+					</div>
+					<div class="field">
+						{{ form_row(form.password.first,{'attr':{'placeholder':'Saisir votre mot de passe...'}}) }}
+					</div>
+					<div class="field">
+						{{ form_row(form.password.second,{'attr':{'placeholder':'Confirmation du mot de passe...'}}) }}
+					</div>
+					<div class="last">
+						<a href="{{path('app_login')}}">Déjà inscrit?</a>
+						<button type="button" onclick="stepper.next()">Suivant</button>
+					</div>
+				</div>
+				<div id="step-perle-2" class="content">
+					<div class="field">
+						{{ form_row(form.genre,{'attr':{'class':'genre-label'}}) }}
+						{{ form_errors(form.genre) }}
+
+					</div>
+					<div class="field">
+
+						{{ form_row(form.jeCherche) }}
+						{{ form_errors(form.jeCherche) }}
+					</div>
+					<div class="field">
+						<div class="label">
+							<label>Ma date de naissance:</label>
+						</div>
+						{{ form_row(form.date_naissance,{'attr':{'placeholder':'mm/dd/yyyy'}}) }}
+						{{ form_errors(form.date_naissance) }}
+					</div>
+					<div class="last">
+						<button type="button" class="btn btn-primary" onclick="stepper.previous()">Précedent</button>
+						<button type="button" class="btn btn-primary" onclick="stepper.next()">Suivant</button>
+					</div>
+				</div>
+				<div id="step-perle-3" class="content">
+						<div class="interior">
+							<a class="btn" href="#open-modal">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+									<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+								</svg>
+								Me géolocaliser
+							</a>
+					    </div>
+					<div class="ou" style="margin: 20px 0px;">
+						<p class="ligne"></p>
+						<p class="text">ou</p>
+						<p class="ligne"></p>
+					</div>
+
+
+					<div class="field">
+						{{ form_row(form.adresse) }}
+					</div>
+					<div class="field">
+						{{ form_row(form.ville) }}
+					</div>
+
+					<div class="field">
+						<div class="label">
+							<label>Pays:</label>
+							<select name="pays" hx-get="{{path('ajaxGetRegion')}}" hx-target="#regions">
+								{% for p in pays %}
+									<option value="{{p.id}}">{{p.nom}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="field">
+						<div class="label">
+							<label>Region</label>
+							<select id="regions" hx-get="{{path('ajaxGetDepartement')}}" name="region" hx-target="#departements">
+								<option value="">Selectionner région</option>
+							</select>
+						</div>
+					</div>
+					<div class="field">
+						<div class="label">
+							<label>Departement</label>
+							<select id="departements" name="departement">
+								<option value="">Selectionner département</option>
+							</select>
+						</div>
+					</div>
+					<div class="last">
+						<button type="button" class="btn btn-primary" onclick="stepper.previous()">Précedent</button>
+						<button type="button" class="btn btn-primary" onclick="stepper.next()">Suivant</button>
+					</div>
+				</div>
+				<div id="step-perle-4" class="content">
+					<h3>Finalisation:</h3>
+					<div class="field finalisation">
+						{{ form_row(form.certifie) }}
+					</div>
+					<div class="field finalisation">
+						{{ form_row(form.condition_generale) }}
+					</div>
+					<div class="field finalisation">
+						{{ form_row(form.condition_vente) }}
+					</div>
+					<div class="last">
+						<button type="button" class="btn btn-primary" onclick="stepper.previous()">Précedent</button>
+						<button type="submit">Terminer</button>
+					</div>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+	<div id="open-modal" class="modal-window">
+		<div>
+			<div class="modal-header">
+			   <span id="city"></span>
+			<div>
+			<div class="modal-body">
+			<div>
+			<a href="#" title="Close" class="modal-close">x</a>
+			<span id="city"></span>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block javascripts %}
+
+<script async src="https://get.geojs.io/v1/ip/geo.js"></script>
+<script type="application/javascript">
+function geoip(json){
+var countrycode = document.getElementById("city");
+countrycode.textContent = json.city;
+console.log(json.longitude);
+console.log(json.lattitude);
+}
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+{% endblock %}

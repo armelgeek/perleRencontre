@@ -1,0 +1,77 @@
+// Import Bootstrap SASS from NPM
+//@import "~bootstrap/scss/bootstrap";
+// Import fonts.scss with some font-faces in it
+@import "fonts";
+//@import "nante";
+//@import "stepper";
+// Import font-awesome 5 SCSS files
+$main-background-color: #f5f5f5;
+
+body{
+    font-size: 12px;
+    font-family: 'Open Sans',sans-serif;
+}
+.last {
+    margin-top: 15px;
+    display: flex;
+   
+    button,a {
+        &:nth-child(1){
+
+            margin-right: 10px;
+        }  &:nth-child(2){
+
+            margin-right: 0px;
+        }
+    text-decoration: none;
+    text-align: center;
+    width: 50%;
+    background: #EEEEEE;
+    background-clip: border-box;
+    position: relative;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    &:hover{
+        background: linear-gradient(to right, #05FBFF, #1E00FF);
+        background-clip: padding-box;
+    }
+    padding: 10px;
+    cursor: pointer;
+    
+    &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    background: linear-gradient(to right, #05FBFF, #1E00FF);
+    content: "";
+    z-index: -1;
+    border-radius: 3px;
+}
+}
+}
+@import 'reset.scss';
+@import 'stepper.scss';
+@import 'layouts/header.scss';
+@import 'stepper-custom.scss';
+@import 'login.scss';
+@import 'profil.scss';
+@import 'modal.scss';
+/*
+@import 'layouts/LignNav.scss';
+
+@import 'layouts/Connexion.scss';
+
+@import 'layouts/Inscription.scss';
+
+@import 'layouts/Profil.scss';
+
+@import 'layouts/Geolocalisation.scss';
+
+@import 'layouts/Final.scss';
+
+@import 'layouts/Accueil.scss';
+
+@import 'layouts/Screen.scss';
+*/

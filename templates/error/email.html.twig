@@ -1,0 +1,5 @@
+  <div hx-target="this" hx-swap="outerHTML" class="error">
+            <input type="text" hx-get="{{path('validate_mail')}}" hx-indicator="#ind">
+            <div class="htmx-indicator" id="ind">Progress</div>
+            <div class='error-message'>That email is already taken.  Please enter another email.</div>
+</div>

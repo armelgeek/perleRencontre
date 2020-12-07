@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block body %}
+<button hx-get="{{path('form')}}"  hx-push-url="true" hx-swap="outerHTML">Editer</button>
+{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -1,0 +1,151 @@
+.perle-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    height: calc(100vh - 50px);
+    
+    .perle-login-title{
+        h2 {
+            float: left;
+            margin-right: 20px;
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 24px;
+            line-height: 1.2;
+            text-align: left;
+            font-weight: bolder;
+            padding-bottom: 10px;
+            color: #303030;
+            strong {
+                padding-left: 2px;
+                background: -webkit-linear-gradient(90deg, #0A2B6B 11.53%, #1E6A90 58.35%, #676A6E 116.07%);
+                    background-clip: border-box;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        
+    }
+    .perle-login-subtitle{
+        font-family: 'Open Sans',sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1.2;
+        text-align: center;
+        padding-bottom: 20px;
+        color: rgba(48, 48, 48, 0.5);
+    }
+    .alert {
+        background: #FF7C6C;
+        border-radius: 5px;
+        position: relative;
+        display: block;
+        margin-left: 5px;
+        height: 40px;
+        margin-bottom:15px;
+        p {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 12.5px;
+            line-height: 17px;
+            text-align: center;
+            padding-top: 12.5px;
+            color: #FFFFFF;
+            a{
+                font-family: 'Open Sans',sans-serif;
+                font-style: normal;
+                font-weight: normal;
+                text-decoration: none;
+                font-size: 12px;
+                line-height: 1.2;
+                color: #ddd2d2;
+                cursor:pointer;
+            }
+        }
+    }
+    .social-connexion{
+        
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+        .facebook {
+            background: #2F80ED;
+            margin-left: 14px;
+            border-radius: 25px;
+            border: none;
+            color:#fff;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            cursor: pointer;
+            i{
+                margin-right: 10px;
+            }
+        }
+        .google {
+            margin-left: 127px;
+            border: none;
+            background: #EB5757;
+            color:#fff;
+            border-radius: 25px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            cursor: pointer;
+            i{
+                margin-right: 15px;
+            }
+        }
+    }
+    .ou {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        margin-right: 20px;
+        .ligne {
+            width: 38px;
+            border: 1px solid rgba(97, 97, 97, 0.8);
+        }
+        .text {
+            font-family: Open Sans;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            padding-right: 12px;
+            color: rgba(97, 97, 97, 0.8);
+        }
+    }
+    form{
+        width: 400px;
+    }
+    .perle-login-ckeck{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        .mot-de-passe-oublie a{
+            font-family: 'Open Sans',sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 12px;
+            line-height: 1.2;
+            color: #707070;
+            cursor:pointer;
+        }
+    }
+}

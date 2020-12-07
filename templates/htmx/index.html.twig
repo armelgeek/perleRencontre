@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block body %}
+<p>Accueil</p>
+{#<button hx-post="{{path('view')}}"  hx-push-url="true" hx-swap="outerHTML">
+    Click Me
+  </button>#}
+  <div hx-get="/view" hx-trigger="load">
+    <div class="htmx-indicator">Progression</div>
+  </div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

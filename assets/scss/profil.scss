@@ -1,0 +1,56 @@
+.banner{
+    height:300px;
+    width: 100%;
+   /* background-position: center;
+    background-size: cover;*/
+    position: relative;
+    background-color:green;
+    .tools{
+       position: absolute;
+       right: 5px;
+       bottom:5px;
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
+       button.pdp{
+        font-family: 'Open Sans',sans-serif;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.2;
+        padding-left:10px;
+        padding-right:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+        border:0;
+        border-radius: 5px;  
+        background-color:#ffff;
+        margin-right:15px;
+           &::before{
+            content:url('/assets/icons/picture.png');;
+            margin-right: 5px;
+            width: 22px;
+            height: 22px;
+            font-weight: 200;
+            font-size:14px;
+        }
+       }
+       button.plus{
+        border-radius: 5px;   
+        border:0;
+        padding:5px 10px;
+        background-color:#ffff;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items:center;
+        .point{
+            width: 7px;
+            height:7px;
+            background:#606060;
+            border-radius: 50%;
+            margin-right:2px;  
+        }
+       }
+    }
+}

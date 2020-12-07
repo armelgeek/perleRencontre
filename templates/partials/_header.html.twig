@@ -1,0 +1,32 @@
+<div class='perle-header'>
+    <div class='perle-header-icon'>
+            <p class="icon">
+            {#<img src='{{asset('img/icons.svg')}}' alt='icons_logo'/>#}
+            <span class="perle">Perle </span> <span class="rencontre"> Rencontres</span>
+            </p>
+    
+    </div>
+    <ul class="perle-header-menu">
+        <li ><a href="{{path('accueil')}}">Accueil</a></li>
+        <li><a href='#'>Rencontres</a></li>
+        <li><a href='#'>Les mondes</a></li>
+        <li><a href='#'>Contacts</a></li>
+    </ul>
+       
+    
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <ul class="connected-container"> <li class="connected"><a href="{{path('monProfil')}}"><img src="http://lorempixel.com/30/30/people" class="avatar" alt="avatar"></a></li>
+          <li class="connected"><img src="{{asset('assets/icons/search.svg')}}" alt="search_icon"></li>
+          <li class="connected"> <img src="{{asset('assets/icons/notification.png')}}" alt="notification_icon"><p class="count"></p></li>
+          <li class="connected"> <img src="{{asset('assets/icons/chat.png')}}" alt="sms_icon"></li>
+          <li class="connected"><img src="{{asset('assets/icons/parametre.svg')}}" alt="parametre_icon"></li>
+          </ul>
+      
+        {% else %}
+        <ul class='perle-header-right'>
+          <li class="not-connected"><a href="{{path('app_login')}}">Connexion</a></li>
+          <li class="not-connected"><a href="{{path('inscription')}}">Inscription</a></li>
+          </ul>
+         {% endif %}
+    
+</div>

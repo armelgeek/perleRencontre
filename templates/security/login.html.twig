@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+<div class="perle-login">
+    <div class="logo">
+                    <div classs="logo1" style=" margin:12px 12px 0 12px ">
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="17.3149" cy="17.0127" r="17.0127" fill="url(#paint0_linear)"></circle>
+                        <defs>
+                        <linearGradient id="paint0_linear" x1="4.224" y1="34.0253" x2="39.7959" y2="34.0253" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0A2B6B"></stop>
+                        <stop offset="0.447917" stop-color="#1E6A90"></stop>
+                        <stop offset="1" stop-color="#676A6E"></stop>
+                        </linearGradient>
+                        </defs>
+                        </svg>
+
+                    </div>
+                    <div classs="logo2" style="margin-bottom: 20px">
+                        <svg width="63" height="18" viewBox="0 0 63 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M62.5045 17.038C62.5045 7.64216 48.5404 0.0253296 31.3147 0.0253296C14.089 0.0253296 0.124803 7.64216 0.124803 17.038H62.5045Z" fill="url(#paint0_linear)"></path>
+                        <defs>
+                        <linearGradient id="paint0_linear" x1="7.98812" y1="17.038" x2="71.3734" y2="17.038" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0A2B6B"></stop>
+                        <stop offset="0.447917" stop-color="#1E6A90"></stop>
+                        <stop offset="1" stop-color="#676A6E"></stop>
+                        </linearGradient>
+                        </defs>
+                        </svg>
+                     </div>
+                </div>
+                <div class="perle-login-title">
+                    <h2>Se connecter sur <strong> Perle Rencontre</strong></h2> 
+                </div>
+                <div class="perle-login-subtitle">
+                    <p>Connectez-vous maintenant.</p>
+                </div>
+    <form method="post">
+    {% if error %}
+        <div class="alert">
+              <p>{{ error.messageKey|trans(error.messageData, 'security') }}  <p>
+        </div>
+    {% endif %}
+    <div class="social-connexion">
+        <button class="facebook"><i class="fa fa-facebook-f"></i>Facebook</button>
+        <button class="google"><i class="fa fa-google"></i>Google</button>           
+    </div>
+    <div class="ou">
+        <p class="ligne"></p>
+        <p class="text">ou</p>
+        <p class="ligne"></p>
+    </div>
+
+    {% if app.user %}
+        <div class="alert">
+           <p> Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a></p>
+        </div>
+    {% endif %}
+  <div class="field">
+    <label for="inputUsername">Pseudo </label>
+    <input type="text" value="{{ last_username }}" name="username" placeholder="Saisissez votre pseudo" id="inputUsername" class="form-control" required autofocus>
+  </div>
+  <div class="field">
+    <label >Mot de passe</label>
+    <input type="password" name="password" id="inputPassword"  placeholder="Saisissez votre pseudo" class="form-control" required>
+  </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+    <div class="perle-login-ckeck">
+         <div class="remember-me">
+            <input id="remember" checked="" name="_remember_me" type="checkbox">
+            <label for="remenber">Se souvenir de moi</label>
+         </div>
+       <div class="mot-de-passe-oublie">
+           <a herf="#">Mot de passe oublié ?</a>
+        </div>
+     </div>
+    <div class="last">
+         <a href="{{path('inscription')}}">Pas encore inscrit?</a>
+         <button type="submit">Se connecter</button>
+    </div>
+</form> 
+</div>
+{% endblock %}
