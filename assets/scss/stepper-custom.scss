@@ -49,23 +49,28 @@ color: rgba(48, 48, 48, 0.75);
 
   padding-top: 20px;
   padding-left: 100px;
-  width: 50%;
+  width: 40%;
   height: calc(40vh);
 }
 .bs-stepper-content{
-  width: 50%;
-  padding-top:20px;
+  div.hr{
+    width: 100%;
+    border-bottom: 0.7px solid #f7f7f7 ;
+  }
+  width: 35%;
+  padding-top:100px;
   padding-left: 50px;
   padding-right: 50px;
   display: flex;
   background-color: #fff;
   height: calc(100vh - 50px);
   flex-direction:column;
-  align-items: center;
-  justify-content: center;
-  form{
-    width:70%;
-  }
+ 
+}
+.bs-stepper-content-blank{
+  background-color: #fff;
+  width: 25%;
+  height: calc(100vh - 50px);
 }
 .social-log-in{
     display: flex;
@@ -116,6 +121,7 @@ color: rgba(48, 48, 48, 0.75);
 .last {
     margin-top: 15px;
     display: flex;
+    justify-content: flex-end;
     color:#000000;
     button,a{
     border:1px solid #1d678e;
@@ -502,6 +508,50 @@ input:checked ~ .checkmark {
                   }
     
             }
+#inscription_date_naissance{
+  width:45%;
+}
+.finalisation{
+ 
+  display:flex;
+  justify-content: flex-start;
+  flex-direction:row;
+  align-items: center;
+  div{
+    margin-right: 10px;
+  }
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
-           
-            
+}
+
+.finalisation-last{
+ 
+  display:flex;
+  justify-content: flex-start;
+  flex-direction:row;
+  div{
+    margin-right: 10px;
+  }
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  label{
+    color:#6c757d!important;
+    font-weight:300;
+  }
+
+}

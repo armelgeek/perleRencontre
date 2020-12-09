@@ -76,18 +76,23 @@ class InscriptionType extends AbstractType
                 'required' => false,
             ])
         ->add('certifie', CheckboxType::class, [
-                'label'    => 'En cochant cette case , je certifie être majeur et responsable',
+                'label'    =>false,
                'required' => true
 
             ])
             ->add('condition_generale', CheckboxType::class, [
-                'label'    => "J'ai lu et accepte les conditions génerales d'utilisations",
+                'label'    => false,
                'required' => true
             ])
                ->add('condition_vente', CheckboxType::class, [
-                'label'    => "J'ai lu et accepte les conditions génerales de vente",
+                'label'    => false,
                'required' => true
-            ]); 
+            ])
+            ->add('peut_envoyer_mail_depuis_le_site', CheckboxType::class, [
+                'label'    => false,
+               'required' => true
+            ]);  
+           
     }
 
     public function configureOptions(OptionsResolver $resolver)

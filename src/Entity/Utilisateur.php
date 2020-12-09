@@ -281,6 +281,11 @@ class Utilisateur implements UserInterface
      */
     private $condition_vente;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $peut_envoyer_mail_depuis_le_site;
+
 
     public function __construct()
     {
@@ -1118,6 +1123,18 @@ class Utilisateur implements UserInterface
     public function setConditionVente(bool $condition_vente): self
     {
         $this->condition_vente = $condition_vente;
+
+        return $this;
+    }
+
+    public function getPeutEnvoyerMailDepuisLeSite(): ?bool
+    {
+        return $this->peut_envoyer_mail_depuis_le_site;
+    }
+
+    public function setPeutEnvoyerMailDepuisLeSite(bool $peut_envoyer_mail_depuis_le_site): self
+    {
+        $this->peut_envoyer_mail_depuis_le_site = $peut_envoyer_mail_depuis_le_site;
 
         return $this;
     }

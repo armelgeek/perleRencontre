@@ -5,11 +5,10 @@
     flex-direction: column;
     position: relative;
     height: calc(100vh - 50px);
-    
+   
     .perle-login-title{
         h2 {
             float: left;
-            margin-right: 20px;
             font-family: Open Sans;
             font-style: normal;
             font-weight: 800;
@@ -84,10 +83,15 @@
             padding-right: 30px;
             padding-top: 10px;
             padding-bottom: 10px;
-
             cursor: pointer;
             i{
                 margin-right: 10px;
+            }
+            span{
+                @include down(600){
+                   display: none;
+                 }
+                display: block;
             }
         }
         .google {
@@ -103,6 +107,12 @@
             cursor: pointer;
             i{
                 margin-right: 15px;
+            }
+            span{
+                @include down(600){
+                   display: none;
+                 }
+                display: block;
             }
         }
     }
@@ -131,6 +141,10 @@
     }
     form{
         width: 400px;
+        @include down(600){
+            width: 300px;
+         }
+
     }
     .perle-login-ckeck{
         display: flex;

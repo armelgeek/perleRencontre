@@ -1,11 +1,12 @@
 <div class='perle-header'>
-    <div class='perle-header-icon'>
-            <p class="icon">
-            {#<img src='{{asset('img/icons.svg')}}' alt='icons_logo'/>#}
-            <span class="perle">Perle </span> <span class="rencontre"> Rencontres</span>
-            </p>
+    <ul class='perle-header-icon'>
+         
+           <li > <img src="{{asset('assets/icons/perle.svg')}}" width="22" /></li>
+            <li ><span class="perle">Perle </span> <span class="rencontre"> Rencontres</span></li>
+            
+        
     
-    </div>
+    </ul>
     <ul class="perle-header-menu">
         <li ><a href="{{path('accueil')}}">Accueil</a></li>
         <li><a href='#'>Rencontres</a></li>
@@ -15,8 +16,10 @@
        
     
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-          <ul class="connected-container"> <li class="connected"><a href="{{path('monProfil')}}"><img src="http://lorempixel.com/30/30/people" class="avatar" alt="avatar"></a></li>
-          <li class="connected"><img src="{{asset('assets/icons/search.svg')}}" alt="search_icon"></li>
+          <ul class="connected-container">
+   
+          <li class="connected"><img src="{{asset('assets/icons/perle.jpg')}}" width="30" style="border-raduis:50%" onclick='javascript:location.href="{{path('monProfil')}}"' alt="search_icon"></li>
+           <li class="connected"><img src="{{asset('assets/icons/search.svg')}}" alt="search_icon"></li>
           <li class="connected"> <img src="{{asset('assets/icons/notification.png')}}" alt="notification_icon"><p class="count"></p></li>
           <li class="connected"> <img src="{{asset('assets/icons/chat.png')}}" alt="sms_icon"></li>
           <li class="connected"><img src="{{asset('assets/icons/parametre.svg')}}" alt="parametre_icon"></li>
@@ -30,3 +33,57 @@
          {% endif %}
     
 </div>
+<div class="perle-rencontre-header-mobile">
+<div class="perle-rencontre-header-menu-bar">
+     <div class="perle-rencontre-header-menu-bar-icon"><img src="{{asset('assets/icons/perle.svg')}}" /></li></div>
+     <div id="perle-rencontre-header-menu-bar-menu" onclick="javascript:toogle()" class="perle-rencontre-header-menu-bar-menu"><img src="{{asset('assets/icons/parametre.svg')}}" width="28"  /></li></div>
+</div>
+</div>
+<div id="perle-rencontre-body-mobile" class="perle-rencontre-body-mobile">
+<div class="close">
+<img src="{{asset('assets/icons/perle.svg')}}" />
+ 
+<h3 onclick="javascript:toogle()">X</h3>
+</div>
+<div class="content">
+ {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <div class="connected"><a href="{{path('monProfil')}}"><img src="http://lorempixel.com/60/60/people" class="avatar" alt="avatar"></a></div>
+    {#<ul class="connected-container">
+          <li class="connected"><img src="{{asset('assets/icons/search.svg')}}" alt="search_icon"></li>
+          <li class="connected"> <img src="{{asset('assets/icons/notification.png')}}" alt="notification_icon"><p class="count"></p></li>
+          <li class="connected"> <img src="{{asset('assets/icons/chat.png')}}" alt="sms_icon"></li>
+          <li class="connected"><img src="{{asset('assets/icons/parametre.svg')}}" alt="parametre_icon"></li>
+          #}
+    </ul>
+  {% endif %}
+   <ul class="classique">
+      <li>
+         <a href="{{path('accueil')}}">Accueil</a>
+         
+      </li>
+      <li><a href='#'>Rencontres</a></li>
+        <li><a href='#'>Les mondes</a></li>
+        <li><a href='#'>Contacts</a></li>
+   </ul>
+    <ul  class="connex">
+   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+           {% else %}
+       
+          <li class="not-connected"><a href="{{path('app_login')}}">Connexion</a></li>
+          <li class="not-connected"><a href="{{path('inscription')}}">Inscription</a></li>
+      
+         {% endif %}
+    </ul>
+</div>
+</div>
+<script type="text/javascript">
+   
+    function toogle() {
+    var x=document.getElementById("perle-rencontre-body-mobile");
+     if (x.style.display === "none") {
+         x.style.display = "block";
+     } else {
+         x.style.display = "none";
+     }
+} 
+</script >

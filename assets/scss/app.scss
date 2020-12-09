@@ -2,6 +2,8 @@
 //@import "~bootstrap/scss/bootstrap";
 // Import fonts.scss with some font-faces in it
 @import "fonts";
+@import "tools/functions.scss";
+@import "tools/mixins.scss";
 //@import "nante";
 //@import "stepper";
 // Import font-awesome 5 SCSS files
