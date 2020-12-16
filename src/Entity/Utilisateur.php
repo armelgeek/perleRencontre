@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  * @UniqueEntity(fields="username", message="Cet utilisateur  déjà utilisé.")
@@ -27,7 +28,7 @@ class Utilisateur implements UserInterface
      * @Assert\Length(min="3")
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username='';
+    private $username = '';
 
     /**
      * @ORM\Column(type="json")
@@ -39,7 +40,7 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
- /**
+    /**
      * @ORM\Column(type="boolean",nullable=true)
      */
     private $genre;
@@ -58,7 +59,7 @@ class Utilisateur implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\PhotoCouverture", mappedBy="utilisateur")
      */
     private $photo_couverture;
-     /**
+    /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="utilisateur")
      */
     private $videos;
@@ -99,7 +100,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="integer",nullable=true)
      */
-    private $age=0;
+    private $age = 0;
 
     /**
      * @ORM\Column(type="json")
@@ -116,7 +117,7 @@ class Utilisateur implements UserInterface
      */
     private $sexualite = [];
 
-   
+
     /**
      * @ORM\Column(type="integer",nullable=true)
      */
@@ -219,7 +220,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="boolean",nullable=true)
      */
-    private $avec_ou_sans_enfant=false;
+    private $avec_ou_sans_enfant = false;
 
     /**
      * @ORM\Column(type="json",nullable=true)
@@ -286,6 +287,21 @@ class Utilisateur implements UserInterface
      */
     private $peut_envoyer_mail_depuis_le_site;
 
+    /**
+     * @ORM\OneToOne(targetEntity=MonPerle::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     */
+    private $monperle;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Abonnement::class, mappedBy="utilisateur", cascade={"persist", "remove"})
+     */
+    private $abonnement;
+
+    /**
+     * @ORM\OneToMany(targetEntity=AbonnementCommand::class, mappedBy="utilisateur")
+     */
+    private $abonnementCommands;
+
 
     public function __construct()
     {
@@ -298,8 +314,9 @@ class Utilisateur implements UserInterface
         $this->views = new ArrayCollection();
         $this->visited = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->abonnementCommands = new ArrayCollection();
     }
-     
+
 
     public function getId(): ?int
     {
@@ -471,22 +488,24 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-    public function avoirUnEnvieDuJour(){
+    public function avoirUnEnvieDuJour()
+    {
         foreach ($this->monEnvies as $envie) {
-            if(date_diff($envie->getDateDuJour(),new \Datetime('now'))){
-               return true;
-               break;
-            }else{
+            if (date_diff($envie->getDateDuJour(), new \Datetime('now'))) {
+                return true;
+                break;
+            } else {
                 return false;
             }
         }
     }
-     public function envieDuJour(){
+    public function envieDuJour()
+    {
         foreach ($this->monEnvies as $envie) {
-          if(date_diff($envie->getDateDuJour(),new \Datetime('now'))){
-               return $envie;
-               break;
-            }else{
+            if (date_diff($envie->getDateDuJour(), new \Datetime('now'))) {
+                return $envie;
+                break;
+            } else {
                 return null;
             }
         }
@@ -638,8 +657,8 @@ class Utilisateur implements UserInterface
 
     public function getCouleurDeCheveux(): ?array
     {
-         $couleurs=$this->couleur_de_cheveux;
-         $couleurs[] = 'COULEUR_DES_CHEVEUX_NOIR';
+        $couleurs = $this->couleur_de_cheveux;
+        $couleurs[] = 'COULEUR_DES_CHEVEUX_NOIR';
 
         return array_unique($couleurs);
     }
@@ -647,7 +666,7 @@ class Utilisateur implements UserInterface
     public function setCouleurDeCheveux(array $couleur_de_cheveux): self
     {
         $this->couleur_de_cheveux = $couleur_de_cheveux;
-     
+
         return $this;
     }
 
@@ -675,7 +694,7 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-   
+
 
     public function getStyleDeCheveux(): ?array
     {
@@ -964,7 +983,7 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-      /**
+    /**
      * @return Collection|Video[]
      */
     public function getLikes(): Collection
@@ -1139,5 +1158,67 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
- 
+    public function getMonperle(): ?MonPerle
+    {
+        return $this->monperle;
+    }
+
+    public function setMonperle(MonPerle $monperle): self
+    {
+        $this->monperle = $monperle;
+
+        // set the owning side of the relation if necessary
+        if ($monperle->getUtilisateur() !== $this) {
+            $monperle->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
+
+    public function setAbonnement(Abonnement $abonnement): self
+    {
+        $this->abonnement = $abonnement;
+
+        // set the owning side of the relation if necessary
+        if ($abonnement->getUtilisateur() !== $this) {
+            $abonnement->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AbonnementCommand[]
+     */
+    public function getAbonnementCommands(): Collection
+    {
+        return $this->abonnementCommands;
+    }
+
+    public function addAbonnementCommand(AbonnementCommand $abonnementCommand): self
+    {
+        if (!$this->abonnementCommands->contains($abonnementCommand)) {
+            $this->abonnementCommands[] = $abonnementCommand;
+            $abonnementCommand->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAbonnementCommand(AbonnementCommand $abonnementCommand): self
+    {
+        if ($this->abonnementCommands->removeElement($abonnementCommand)) {
+            // set the owning side to null (unless already changed)
+            if ($abonnementCommand->getUtilisateur() === $this) {
+                $abonnementCommand->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
 }

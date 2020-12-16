@@ -143,14 +143,14 @@ animation: true
 					</div>
 				</div>
 				<div id="step-perle-3" class="content">
-						<div class="interior">
-							<a class="btn" href="#open-modal">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
-									<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-								</svg>
-								Me géolocaliser
-							</a>
-					    </div>
+					<div class="interior">
+						<a class="btn" href="#open-modal">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+								<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
+							</svg>
+							Me géolocaliser
+						</a>
+					</div>
 					<div class="ou" style="margin: 20px 0px;">
 						<p class="ligne"></p>
 						<p class="text">ou</p>
@@ -200,29 +200,29 @@ animation: true
 					<h2>Finalisation:</h2>
 					<div class="field finalisation">
 						{{ form_row(form.certifie) }}
-						 <span class="checkmark"></span>
+						<span class="checkmark"></span>
 						<label>En cochant cette case , je certifie être majeur et responsable</label>
 					</div>
 					<div class="field finalisation">
 						{{ form_row(form.condition_generale) }}
-						 <span class="checkmark"></span>
-						 <label>J'ai lu et accepte les conditions génerales d'utilisations</label>
+						<span class="checkmark"></span>
+						<label>J'ai lu et accepte les conditions génerales d'utilisations</label>
 					</div>
 					<div class="field finalisation">
-					
+
 						{{ form_row(form.condition_vente) }}
-						
+
 						<label>J'ai lu et accepte les conditions génerales de vente
-					</label>
+						</label>
 					</div>
-					
-					<div class="hr">	</div>
+
+					<div class="hr"></div>
 					<div class="field finalisation-last">
 						{{ form_row(form.peut_envoyer_mail_depuis_le_site) }}
 						<label>En cochant cette case,je donne l'ordre de ne pas m'envoyer de mail provenant du monde rencontre love.J'autorise seulement
-						 la reception de mail pour la confirmation de mon compte et pour la réinitialisation ou le changement 
-						 de mon mot de passe
-					</label>
+													 la reception de mail pour la confirmation de mon compte et pour la réinitialisation ou le changement 
+													 de mon mot de passe
+						</label>
 					</div>
 					<div class="last">
 						<button type="submit">Terminer</button>
@@ -230,28 +230,27 @@ animation: true
 				</div>
 				{{ form_end(form) }}
 			</div>
-			<div class="bs-stepper-content-blank">
-			</div>
+			<div class="bs-stepper-content-blank"></div>
 		</div>
 	</div>
 	<div id="open-modal" class="modal-window">
 		<div>
 			<div class="modal-header">
-			   <span id="city"></span>
-			<div>
-			<div class="modal-body">
-			<div>
-			<a href="#" title="Close" class="modal-close">x</a>
-			<span id="city"></span>
-		</div>
-	</div>
-	
-{% endblock %}
-{% block javascripts %}
+				<span id="city"></span>
+				<div>
+					<div class="modal-body">
+						<div>
+							<a href="#" title="Close" class="modal-close">x</a>
+							<span id="city"></span>
+						</div>
+					</div>
 
-<script async src="https://get.geojs.io/v1/ip/geo.js"></script>
-<script type="application/javascript">
-function geoip(json){
+				{% endblock %}
+				{% block javascripts %}
+
+					<script async src="https://get.geojs.io/v1/ip/geo.js"></script>
+					<script type="application/javascript">
+						function geoip(json) {
 var countrycode = document.getElementById("city");
 countrycode.textContent = json.city;
 console.log(json.longitude);
@@ -259,16 +258,15 @@ console.log(json.lattitude);
 }
 var x = document.getElementById("demo");
 function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(showPosition);
+} else {
+x.innerHTML = "Geolocation is not supported by this browser.";
+}
 }
 
 function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
+x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
 }
-</script>
-{% endblock %}
+					</script>
+				{% endblock %}
