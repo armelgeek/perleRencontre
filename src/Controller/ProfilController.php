@@ -28,7 +28,7 @@ class ProfilController extends AbstractController
         $user = $security->getUser();
         if ($user != null && $user instanceof Utilisateur) {
             $profile = $this->getDoctrine()->getRepository(MonProfil::class)->findOneBy(array('user' => $user));
-            $notifications = $this->getDoctrine()->getRepository(MonProfil::class)->findBy(array('profil' => $profile));
+            $notifications = $this->getDoctrine()->getRepository(Notification::class)->findBy(array('receiver' => $profile));
             $moncoffre =  $this->getDoctrine()->getRepository(MonCoffre::class)->findOneBy(array('profil' => $profile));
             $bourse = intdiv($profile->getPerle(),5);
             $abonnement = $this->getDoctrine()->getRepository(Abonnement::class)->findAll();
