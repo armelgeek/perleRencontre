@@ -22,7 +22,7 @@ class CadeauController extends AbstractController
     {
         $user = $security->getUser();
         if ($user != null && $user instanceof Utilisateur) {
-            $cadeaux = $this->getDoctrine()->getRepository(MonProfil::class)->findAll();
+            $cadeaux = $this->getDoctrine()->getRepository(Cadeau::class)->findAll();
             return $this->render('cadeau/index.html.twig', [
                 'cadeau' => $cadeaux,
             ]);
