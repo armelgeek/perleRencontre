@@ -1,0 +1,16 @@
+crons:
+    update_message:
+        #  every night at 00.00 am (UTC).
+        spec: '00 00 * * *'
+        cmd: |
+              croncape php bin/console app:mesage-perle-update
+    remove_old_message:
+        #  every night at 00.30 am (UTC).
+        spec: '30 00 * * *'
+        cmd: |
+            croncape php bin/console app:remove-message
+    update_abonnement:
+        #  every night at 1.00 am (UTC).
+        spec: '00 1 * * *'
+        cmd: |
+            croncape php bin/console app:update-abonnement

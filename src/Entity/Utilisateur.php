@@ -286,6 +286,11 @@ class Utilisateur implements UserInterface
      */
     private $peut_envoyer_mail_depuis_le_site;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CadeauSent::class, mappedBy="user")
+     */
+    private $cadeauSents;
+
 
     public function __construct()
     {
@@ -298,6 +303,7 @@ class Utilisateur implements UserInterface
         $this->views = new ArrayCollection();
         $this->visited = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->cadeauSents = new ArrayCollection();
     }
      
 
@@ -1135,6 +1141,36 @@ class Utilisateur implements UserInterface
     public function setPeutEnvoyerMailDepuisLeSite(bool $peut_envoyer_mail_depuis_le_site): self
     {
         $this->peut_envoyer_mail_depuis_le_site = $peut_envoyer_mail_depuis_le_site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CadeauSent[]
+     */
+    public function getCadeauSents(): Collection
+    {
+        return $this->cadeauSents;
+    }
+
+    public function addCadeauSent(CadeauSent $cadeauSent): self
+    {
+        if (!$this->cadeauSents->contains($cadeauSent)) {
+            $this->cadeauSents[] = $cadeauSent;
+            $cadeauSent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCadeauSent(CadeauSent $cadeauSent): self
+    {
+        if ($this->cadeauSents->removeElement($cadeauSent)) {
+            // set the owning side to null (unless already changed)
+            if ($cadeauSent->getUser() === $this) {
+                $cadeauSent->setUser(null);
+            }
+        }
 
         return $this;
     }

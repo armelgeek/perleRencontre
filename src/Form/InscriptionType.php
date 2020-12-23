@@ -24,19 +24,19 @@ class InscriptionType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => "Nom d'utilisateur",
-                 'required' =>true,
+                'required' => true,
             ])
             ->add('email', TextType::class, [
                 'label' => "Adresse email",
-                'required' =>true
+                'required' => true
             ])
             ->add('password', RepeatedType::class, array(
-                    'required' => true,
-                    'type' => PasswordType::class,
-                    'first_options'  => array('label' => 'Mot de passe'),
-                    'second_options' => array('label' => 'Confirmer le mot de passe'),
+                'required' => true,
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Confirmer le mot de passe'),
             ))
-             ->add('genre', ChoiceType::class, [
+            ->add('genre', ChoiceType::class, [
                 'choices' => [
                     'Femme' => 0,
                     'Garcon' => 1,
@@ -60,39 +60,38 @@ class InscriptionType extends AbstractType
                 'label' => 'Je Cherche :',
                 'required' => true
             ])
-             ->add('date_naissance',DateTimeType::class, array(
+            ->add('date_naissance', DateTimeType::class, array(
                 'required' => true,
                 'label' => false,
                 'attr' => ['class' => 'js-datepicker'],
                 'format' => 'yyyy-MM-dd'
 
             ))
-             ->add('ville', TextType::class, [
+            ->add('ville', TextType::class, [
                 'label' => "Ville",
                 'required' => false,
             ])
-           ->add('adresse', TextareaType::class, [
+            ->add('adresse', TextareaType::class, [
                 'label' => "Adresse",
                 'required' => false,
             ])
-        ->add('certifie', CheckboxType::class, [
-                'label'    =>false,
-               'required' => true
+            ->add('certifie', CheckboxType::class, [
+                'label'    => false,
+                'required' => true
 
             ])
             ->add('condition_generale', CheckboxType::class, [
-                'label'    => false,
-               'required' => true
+                'label'    => "En cochant cette case , je certifie être majeur et responsable",
+                'required' => true
             ])
-               ->add('condition_vente', CheckboxType::class, [
-                'label'    => false,
-               'required' => true
+            ->add('condition_vente', CheckboxType::class, [
+                'label'    => "J'ai lu et accepte les conditions génerales d'utilisations",
+                'required' => true
             ])
             ->add('peut_envoyer_mail_depuis_le_site', CheckboxType::class, [
-                'label'    => false,
-               'required' => true
-            ]);  
-           
+                'label'    => "J'ai lu et accepte les conditions génerales de vente",
+                'required' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
