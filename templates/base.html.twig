@@ -45,14 +45,17 @@
          {{ encore_entry_script_tags('app') }}
          <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
          <script src="{{asset('assets/js/stepper.js')}}"></script>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
         <script type="text/javascript">
         window.stepper = new Stepper(document.querySelector('.bs-stepper'), {
             linear: false,
             animation: true
         });
-  
-      flatpickr(".js-datepicker", {});
-</script>
+        flatpickr(".js-datepicker", {});
+        </script>
     </body>
 </html>

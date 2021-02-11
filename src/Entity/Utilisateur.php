@@ -303,6 +303,17 @@ class Utilisateur implements UserInterface
     private $abonnementCommands;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="uti_id")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="uti_id")
+     */
+    private $chats;
+
+
     public function __construct()
     {
         $this->photo_couverture = new ArrayCollection();
@@ -315,6 +326,8 @@ class Utilisateur implements UserInterface
         $this->visited = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->abonnementCommands = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->chats = new ArrayCollection();
     }
 
 
@@ -1216,6 +1229,66 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($abonnementCommand->getUtilisateur() === $this) {
                 $abonnementCommand->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUtiId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUtiId() === $this) {
+                $conversation->setUtiId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setUtiId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->removeElement($chat)) {
+            // set the owning side to null (unless already changed)
+            if ($chat->getUtiId() === $this) {
+                $chat->setUtiId(null);
             }
         }
 

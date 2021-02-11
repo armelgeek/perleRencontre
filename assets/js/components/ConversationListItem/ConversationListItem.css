@@ -1,0 +1,46 @@
+.conversation-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.conversation-list-item:hover {
+  background: #eeeef1;
+  cursor: pointer;
+}
+
+.conversation-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.conversation-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.conversation-snippet {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+.isconnected{
+  width:10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #13b820;
+  margin-left: 40px;
+  margin-top: 28px;
+  position:absolute
+}
+.not connected{
+  width:10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #13b820
+}
