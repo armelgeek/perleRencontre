@@ -1,0 +1,56 @@
+.inline-container {
+  vertical-align: middle;
+  overflow-x: scroll;
+  overflow-y:hidden;
+  white-space: nowrap;
+  height:150px;
+  width: 100%;
+}
+.inline-item:hover {
+  background-color:#f5f5f5;
+  cursor:pointer;
+}
+.inline-item {
+  display: inline-block;
+  vertical-align: middle;
+  height: 130px;
+  width: 100px;
+  margin: 4px;
+}
+.connected-profile{
+    display: block;
+    text-align: center;
+    position: relative;
+}
+.connected-info{
+    display: block;
+    text-align: center;
+    width: 100px;
+    white-space: pre-wrap;
+    font-size: 11px;
+}
+.connected-name{
+    font-size:13px;
+}
+.connected-statut{
+    font-size: 11px;
+}
+.connected-photo{
+    width:60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.isconnected-state{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    position: absolute;
+    margin-top: 42px;
+    margin-left: -10px;
+}
+.connected-bigtitle{
+    font-weight: 900;
+    margin: 10px;
+    text-align: center;
+}
