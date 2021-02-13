@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -247,16 +249,19 @@ class Utilisateur implements UserInterface
     private $ville;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="utilisateur")
      */
     private $departement;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="utilisateurs")
      */
     private $region;
 
     /**
+     * @MaxDepth(1)
      * @ORM\ManyToOne(targetEntity=Pays::class, inversedBy="utilisateurs")
      */
     private $pays;
@@ -287,9 +292,27 @@ class Utilisateur implements UserInterface
     private $peut_envoyer_mail_depuis_le_site;
 
     /**
+     * @MaxDepth(1)
      * @ORM\OneToMany(targetEntity=CadeauSent::class, mappedBy="user")
      */
     private $cadeauSents;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="uti_id")
+     */
+    private $conversations;
+
+    /**
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="uti_id")
+     */
+    private $participants;
+
+    /**
+     * @MaxDepth(1)
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isOnline;
 
 
     public function __construct()
@@ -304,8 +327,10 @@ class Utilisateur implements UserInterface
         $this->visited = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->cadeauSents = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
-     
+
 
     public function getId(): ?int
     {
@@ -1171,6 +1196,78 @@ class Utilisateur implements UserInterface
                 $cadeauSent->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUtiId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUtiId() === $this) {
+                $conversation->setUtiId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setUtiId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->removeElement($participant)) {
+            // set the owning side to null (unless already changed)
+            if ($participant->getUtiId() === $this) {
+                $participant->setUtiId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsOnline(): ?bool
+    {
+        return $this->isOnline;
+    }
+
+    public function setIsOnline(?bool $isOnline): self
+    {
+        $this->isOnline = $isOnline;
 
         return $this;
     }

@@ -1,6 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import Messenger from '../Messenger';
 import socketIOClient from "socket.io-client";
+import './App.css';
 
 const ENDPOINT = "http://localhost:3001";
 

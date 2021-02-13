@@ -14,7 +14,7 @@ export default function Connected(props) {
             <div className="connected-bigtitle">Connectés ({users.length})</div>
             <div className="inline-container">
                {[users.map(user =>{ 
-                   return <div class="inline-item" onClick={()=>handleData(user)}>
+                   return <div class="inline-item" onClick={()=> handleData(user)}>
                         <div className="connected-profile">
                             <img className="connected-photo" src={user.photo} alt="connected" />
                             <span className="isconnected-state"></span>

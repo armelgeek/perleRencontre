@@ -52,6 +52,11 @@ class Message
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Conversation::class, mappedBy="last_message_id", cascade={"persist", "remove"})
+     */
+    private $conversation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,24 @@ class Message
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): self
+    {
+        $this->conversation = $conversation;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newLast_message_id = null === $conversation ? null : $this;
+        if ($conversation->getLastMessageId() !== $newLast_message_id) {
+            $conversation->setLastMessageId($newLast_message_id);
+        }
 
         return $this;
     }

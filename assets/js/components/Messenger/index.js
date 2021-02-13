@@ -24,7 +24,7 @@ export default function Messenger(props) {
           message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
           timestamp: new Date().getTime()
         },]
-      axios.get('https://randomuser.me/api/?results=20').then(response => {
+      axios.get('/chat/api/list_connections').then(response => {
           let newConversations = response.data.results.map((result,i) => {
             let userData = {
               photo: result.picture.large,
@@ -36,11 +36,11 @@ export default function Messenger(props) {
             }
             return userData;
           });
-          setConversations([...conversations, ...newConversations])
+          setConversations([...newConversations])
       });
     }
 
-    let loadData = (currentuser)=> {
+    let loadData = async (currentuser)=> {
 
       let profile_data = [
         {
@@ -105,7 +105,6 @@ export default function Messenger(props) {
         },
       ];
       setMessages(<MessageList current={currentuser} messages={profile_data} />);
-      console.log(profile_data);
     }
 
     return (
@@ -114,7 +113,7 @@ export default function Messenger(props) {
           {/* Conversation list */}
           <div className="conversation-list">
             <Toolbar className="fixed"
-              title="Perle Chat"
+              title="Chat"
               leftItems={[
                 <ToolbarButton key="cog" icon="ion-ios-cog" />
               ]}

@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %}Chat{% endblock %}
+{% block stylesheets %}
+<meta http-equiv='cache-control' content='no-cache'>
+<link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet">
+{{ encore_entry_link_tags('chat') }}
+{% endblock %}
+{% block body %}
+<div id="root">
+</div>
+{% endblock %}
+{% block javascripts %}
+	{{ encore_entry_script_tags('chat') }}
+{% endblock %}
+
+
