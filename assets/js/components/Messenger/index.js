@@ -12,99 +12,37 @@ import './Messenger.css';
 export default function Messenger(props) {
     let [messages,setMessages] = useState();
     const [conversations, setConversations] = useState([]);
+    let [onlineUsers,setOnlineUsers] = useState([])
+    let [isLoading,setIsLoading] = useState(false);
 
     useEffect(() => {
-      getConversations()
+      getOnlineUsers();
+      getConversations();
     },[])
 
-  const getConversations = () => {
-      let convers = [{
-          id: 1,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },]
-      axios.get('/chat/api/list_connections').then(response => {
-          let newConversations = response.data.results.map((result,i) => {
-            let userData = {
-              photo: result.picture.large,
-              name: `${result.name.first} ${result.name.last}`,
-              text: 'Hello world! This is a long message that needs to be truncated.'
-            }
-            if(  i === 0){
-              setMessages(<MessageList current={userData} messages={convers} />);
-            }
-            return userData;
-          });
-          setConversations([...newConversations])
-      });
-    }
+ 
 
     let loadData = async (currentuser)=> {
+      axios.get('/chat/api/messages/'+currentuser.id).then(response =>{
+        setMessages(<MessageList current={currentuser} loading={isLoading} messages={response.data} />);
+      })
+    }
 
-      let profile_data = [
-        {
-          id: 1,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 2,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 3,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 4,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 5,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 6,
-          author: 'apple',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 7,
-          author: 'orange',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 8,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 9,
-          author: 'apple',
-          message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          timestamp: new Date().getTime()
-        },
-        {
-          id: 10,
-          author: 'orange',
-          message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-          timestamp: new Date().getTime()
-        },
-      ];
-      setMessages(<MessageList current={currentuser} messages={profile_data} />);
+    let getOnlineUsers = async ()=> {
+      axios.get('/chat/api/list_connections').then(response =>{
+        setOnlineUsers([...onlineUsers,...response.data])
+      })
+    }
+     const getConversations = () => {
+    var defaultValue = 0 ;
+      var userElement = document.getElementById("user_id")
+      if(userElement != undefined){
+        defaultValue = userElement.value;
+      }
+      axios.get('/chat/api/conversations/'+defaultValue).then(response => {
+          setConversations([...conversations,...response.data])
+          loadData(response.data[0])
+      });
     }
 
     return (
@@ -121,12 +59,12 @@ export default function Messenger(props) {
                 <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
               ]}
             />
-            <Connected users={conversations}  handleData={loadData} />
+            <Connected users={onlineUsers}  handleData={loadData} />
             <ConversationSearch />
             {
-              conversations.map(conversation =>
+              conversations.map((conversation,index) =>
                 <ConversationListItem handleData={loadData}
-                  key={conversation.name}
+                  key={conversation.name + index}
                   data={conversation}
                 />
               )

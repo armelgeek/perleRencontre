@@ -8,6 +8,11 @@
 {% block body %}
 <div id="root">
 </div>
+<input type="hidden" id="user_language" value="{{ app.request.getLocale() }}"/>
+{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+	<input type="hidden" id="user_id" value="{{app.user.id }}"/>
+{% endif %}
+
 {% endblock %}
 {% block javascripts %}
 	{{ encore_entry_script_tags('chat') }}

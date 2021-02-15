@@ -87,7 +87,6 @@ export default function MessageList(props) {
       // Proceed to the next message.
       i += 1;
     }
-    console.log(messages);
     return tempMessages;
   }
 
