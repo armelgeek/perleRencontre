@@ -8,15 +8,15 @@ import Picker from 'emoji-picker-react';
 
 import './MessageList.css';
 
-const MY_USER_ID = 'apple';
 
 export default function MessageList(props) {
   // const [messages, setMessages] = useState([])
-  const {messages,current,conversation} = props;
+  const {messages,conversation,userId} = props;
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [emojiState, setEmojiState] = useState('none');
-  
-  const MY_USER_ID = parseInt(current.id);
+  let participants = conversation.participants.filter(p => p.uti.id != userId )
+  var current = participants[0].uti
+  const MY_USER_ID = parseInt(userId);
  
   useEffect(() => {
   },[])

@@ -8,16 +8,16 @@ const ENDPOINT = "http://localhost:3001";
 
 export default function App() {
 
-  const[messenger,setMessengers] = useState( <Messenger />)
+  const[messenger,setMessengers] = useState()
+  const [userId,setUserId] = useState(0);
 
-    // useEffect(() => {
-    //   // const socket = socketIOClient(ENDPOINT);
-    //   // socket.on("FromAPI", data => {
-    //   // });
-    //   // socket.on('connect',()=>{
-    //   //   console.log("Connected")
-    //   // });
-    // }, []);
+    useEffect(() => {
+      var userElement = document.getElementById("user_id");
+      if(userElement != undefined){
+          setUserId(userElement.value);
+          setMessengers(<Messenger id={userElement.value}/>)
+      }
+    }, []);
 
     return (
       <div className="App">

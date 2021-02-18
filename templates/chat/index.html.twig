@@ -12,6 +12,7 @@
 	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 		<input type="hidden" id="user_id" value="{{app.user.id }}"/>
 	{% endif %}
+	
 
 {% endblock %}
 {% block javascripts %}

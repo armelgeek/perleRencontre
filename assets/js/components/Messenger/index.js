@@ -15,9 +15,8 @@ export default function Messenger(props) {
     const [conversations, setConversations] = useState([]);
     let [onlineUsers,setOnlineUsers] = useState([])
     let [isLoading,setIsLoading] = useState(false);
-
-    let [userId,setUserId] = useState(0)
-
+    let {id} = props
+    console.log(id)
     useEffect(() => {
       getOnlineUsers();
       getConversations();
@@ -26,9 +25,8 @@ export default function Messenger(props) {
  
 
     let loadData = async (conversation)=> {
-      // console.log(conversation.messages);
       axios.get('/chat/api/messages/'+conversation.id).then(response =>{
-        setMessages(<MessageList current={conversation.uti} loading={isLoading} conversation={conversation} messages={response.data} />);
+        setMessages(<MessageList  loading={isLoading} userId={id} conversation={conversation} messages={response.data} />);
       })
     }
 
@@ -37,19 +35,23 @@ export default function Messenger(props) {
         setOnlineUsers([...onlineUsers,...response.data])
       })
     }
+
+
      const getConversations = () => {
-     var defaultValue = 0 ;
-      var userElement = document.getElementById("user_id")
-      if(userElement != undefined){
-        defaultValue = userElement.value;
-        setUserId(defaultValue);
-      }
+     var defaultValue = 1 ;
       axios.get('/chat/api/conversations/'+defaultValue).then(response => {
-          console.log(response.data);
+          
           setConversations([...conversations,...response.data])
           // loadData(response.data[0])
+          if(response.data.length > 0){
+              let conversation = response.data[0]
+              console.log(conversation);
+              setMessages(<MessageList  loading={isLoading} conversation={conversation} messages={conversation.messages} userId={id}/>);
+          }
+          
       });
     }
+
 
     return (
       <div className="messenger">
@@ -72,7 +74,7 @@ export default function Messenger(props) {
                 return <ConversationListItem handleData={loadData}
                   key={index}
                   data={conversation}
-                  userId={userId}
+                  userId={id}
                 />}
               )
             }

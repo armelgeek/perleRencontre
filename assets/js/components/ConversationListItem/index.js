@@ -9,13 +9,15 @@ export default function ConversationListItem(props) {
   let userId = props.userId
   let participants = conversation.participants.filter(p => p.uti.id != userId )
   var participant = participants[0].uti
+  console.log(conversation.messages)
+  let text = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length -1 ].message :  'helo';
   useEffect(() => {
     shave('.conversation-snippet', 20);
   });
 
     const {handleData} = props;
 
-    const { profileimage, username, text } = participant;
+    const { profileimage, username } = participant;
 
     return (
       <div className="conversation-list-item" onClick={()=>handleData(conversation)}>
