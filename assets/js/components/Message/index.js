@@ -8,10 +8,11 @@ export default function Message(props) {
       isMine,
       startsSequence,
       endsSequence,
-      showTimestamp
+      showTimestamp,
+      friendly
     } = props;
 
-    const friendlyTimestamp = moment(data.timestamp).format('LLLL');
+    const friendlyTimestamp = moment(friendly).format('LLLL');
     return (
       <div className={[
         'message',

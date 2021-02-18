@@ -13,14 +13,14 @@ export default function Connected(props) {
 
             <div className="connected-bigtitle">Connectés ({users.length})</div>
             <div className="inline-container">
-               {[users.map(user =>{ 
-                   return <div class="inline-item" onClick={()=>handleData(user)}>
-                        <div className="connected-profile">
-                            <img className="connected-photo" src={user.photo} alt="connected" />
+               {[users.map((user,index )=>{ 
+                   return <div key={index} className="inline-item" onClick={()=> handleData(user)}>
+                        <div className="connected-profile"> 
+                            <img className="connected-photo"  src={'/assets/profiles/'+user.profileimage} />
                             <span className="isconnected-state"></span>
                         </div>
                         <div className="connected-info">
-                            <h1 className="connected-name">{ user.name }</h1>
+                            <h1 className="connected-name">{ user.username }</h1>
                             <p className="connected-statut">Connecté</p>
                         </div>
                     </div>

@@ -33,16 +33,6 @@ class Message
     private $chapitre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class)
-     */
-    private $sender;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class)
-     */
-    private $receiver;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -51,6 +41,18 @@ class Message
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $uti;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $conv;
 
     public function getId(): ?int
     {
@@ -93,30 +95,6 @@ class Message
         return $this;
     }
 
-    public function getSender(): ?Utilisateur
-    {
-        return $this->sender;
-    }
-
-    public function setSender(?Utilisateur $sender): self
-    {
-        $this->sender = $sender;
-
-        return $this;
-    }
-
-    public function getReceiver(): ?Utilisateur
-    {
-        return $this->receiver;
-    }
-
-    public function setReceiver(?Utilisateur $receiver): self
-    {
-        $this->receiver = $receiver;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -137,6 +115,30 @@ class Message
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUti(): ?Utilisateur
+    {
+        return $this->uti;
+    }
+
+    public function setUti(?Utilisateur $uti): self
+    {
+        $this->uti = $uti;
+
+        return $this;
+    }
+
+    public function getConv(): ?Conversation
+    {
+        return $this->conv;
+    }
+
+    public function setConv(?Conversation $conv): self
+    {
+        $this->conv = $conv;
 
         return $this;
     }

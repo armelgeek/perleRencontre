@@ -291,6 +291,31 @@ class Utilisateur implements UserInterface
      */
     private $cadeauSents;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isOnline;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $profileimage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="uti")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
 
     public function __construct()
     {
@@ -304,6 +329,7 @@ class Utilisateur implements UserInterface
         $this->visited = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->cadeauSents = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
      
 
@@ -1171,6 +1197,84 @@ class Utilisateur implements UserInterface
                 $cadeauSent->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsOnline(): ?bool
+    {
+        return $this->isOnline;
+    }
+
+    public function setIsOnline(?bool $isOnline): self
+    {
+        $this->isOnline = $isOnline;
+
+        return $this;
+    }
+
+    public function getProfileimage(): ?string
+    {
+        return $this->profileimage;
+    }
+
+    public function setProfileimage(?string $profileimage): self
+    {
+        $this->profileimage = $profileimage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setUti($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUti() === $this) {
+                $conversation->setUti(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
