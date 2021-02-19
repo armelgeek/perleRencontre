@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Chat;
+use App\Entity\Conversation;
+use App\Repository\ChatRepository;
 use App\Repository\ConversationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,18 +66,58 @@ class ChatController extends AbstractController
         // return new JsonResponse($data);
         return $response;
     }
+
     /**
      * @Route("/chat/api/messages/{conv_id}", name="api_chat_messages")
      */
     public function getMessage(ConversationRepository $repoConv,$conv_id)
     {
-
         $converastion = $repoConv->findOneBy(array('id'=> $conv_id));
         $jsondata = json_encode([]);
         if($converastion != null){
             $data = $converastion->getMessages();
             // $data = $repoConv->getMessages($conv_id);
             $jsondata = $this->serializeData($data);
+        }
+        $response = new Response($jsondata);
+        $response->headers->set('Content-Type', 'application/json');
+        // return new JsonResponse($data);
+        return $response;
+    }
+
+    /**
+     * @Route("/chat/api/conversation/{uti1}/{uti2}", name="api_chat_conv")
+     */
+    public function getConnectedConversation(UtilisateurRepository $repoUti ,ConversationRepository $repoConv, $uti1, $uti2)
+    {
+
+        $conversation = $repoConv->findConversation($uti1, $uti2);
+        $jsondata = json_encode([]);
+        if ($conversation != null) {
+            $jsondata = $this->serializeData(array("conversation" => $conversation, 'new' => false));
+        }
+        else{
+            // Persite daabase
+            $em = $this->getDoctrine()->getManager();
+            $utilisateur1 = $repoUti->find($uti1);
+            $utilisateur2 = $repoUti->find($uti2);
+            // Chat
+            $chat = new Chat();
+            $chat->setUti1($utilisateur1);
+            $chat->setUti2($utilisateur2);
+            $chat->setCreatedAt(new DateTime());
+            $chat->setUpdatedAt(new DateTime());
+            // Create new Conversation
+            $conversation = new Conversation();
+            $conversation->setUti($utilisateur1);
+            $conversation->setCreatedAt(new DateTime());
+            $conversation->setUpdatedAt(new DateTime());
+            $conversation->setChat($chat);
+            $em->persist($chat);
+            $em->persist($conversation);
+            // flus privileges
+            $em->flush();
+            $jsondata = $this->serializeData(array("conversation" => $conversation,'new'=>true));
         }
         $response = new Response($jsondata);
         $response->headers->set('Content-Type', 'application/json');

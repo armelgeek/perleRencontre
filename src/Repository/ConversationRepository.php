@@ -34,6 +34,18 @@ class ConversationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findConversation($id1, $id2)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.chat', 'chat')
+            ->andWhere('chat.uti2 = :id2 AND chat.uti1 = :id1')
+            ->orWhere('chat.uti1 = :id2 AND chat.uti2 = :id1')
+            ->setParameter('id1', $id1)
+            ->setParameter('id2', $id2)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Conversation

@@ -7,10 +7,9 @@ export default function ConversationListItem(props) {
 
   let conversation = props.data
   let userId = props.userId
-  let participants = conversation.participants.filter(p => p.uti.id != userId )
-  var participant = participants[0].uti
-  console.log(conversation.messages)
-  let text = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length -1 ].message :  'helo';
+  let participants = [conversation.chat.uti1, conversation.chat.uti2]
+  var participant = participants.find(p=>p.id != userId)
+  let text = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length -1 ].message :  '...';
   useEffect(() => {
     shave('.conversation-snippet', 20);
   });
@@ -23,7 +22,7 @@ export default function ConversationListItem(props) {
       <div className="conversation-list-item" onClick={()=>handleData(conversation)}>
         <img className="conversation-photo" src={'/assets/profiles/'+profileimage} />
         { participant.isOnline? <span className="isconnected"></span> :''}
-        <div className="conversation-info">
+        <div className="conversation-info" style={{ lineHeight: '20px'}}>
           <h1 className="conversation-title">{ username }</h1>
           <p className="conversation-snippet">{ text }</p>
         </div>

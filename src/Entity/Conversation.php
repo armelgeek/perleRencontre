@@ -55,6 +55,11 @@ class Conversation
      */
     private $messages;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Chat::class, mappedBy="conv", cascade={"persist", "remove"})
+     */
+    private $chat;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -181,6 +186,23 @@ class Conversation
             if ($message->getConv() === $this) {
                 $message->setConv(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getChat(): ?Chat
+    {
+        return $this->chat;
+    }
+
+    public function setChat(Chat $chat): self
+    {
+        $this->chat = $chat;
+
+        // set the owning side of the relation if necessary
+        if ($chat->getConv() !== $this) {
+            $chat->setConv($this);
         }
 
         return $this;

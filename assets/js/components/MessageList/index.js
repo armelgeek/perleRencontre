@@ -14,10 +14,10 @@ export default function MessageList(props) {
   const {messages,conversation,userId} = props;
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [emojiState, setEmojiState] = useState('none');
-  let participants = conversation.participants.filter(p => p.uti.id != userId )
-  var current = participants[0].uti
+  let participants = [conversation.chat.uti1,conversation.chat.uti2] 
+  var current = participants.find(el=>el.id != userId)
   const MY_USER_ID = parseInt(userId);
- 
+
   useEffect(() => {
   },[])
 

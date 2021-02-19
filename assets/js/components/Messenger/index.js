@@ -25,8 +25,20 @@ export default function Messenger(props) {
  
 
     let loadData = async (conversation)=> {
+      console.log(conversation)
       axios.get('/chat/api/messages/'+conversation.id).then(response =>{
         setMessages(<MessageList  loading={isLoading} userId={id} conversation={conversation} messages={response.data} />);
+      })
+    }
+
+    let loadConnectedMessage = async(current) =>{
+      axios.get('/chat/api/conversation/'+id+'/'+current.id).then(response =>{
+        console.log(response.data);
+        let conversation = response.data.conversation;
+        if(response.data.new){
+          setConversations([conversation,...conversations])
+        }
+        setMessages(<MessageList  loading={isLoading} userId={id} conversation={conversation} messages={conversation.messages} />);
       })
     }
 
@@ -38,17 +50,13 @@ export default function Messenger(props) {
 
 
      const getConversations = () => {
-     var defaultValue = 1 ;
-      axios.get('/chat/api/conversations/'+defaultValue).then(response => {
-          
+      axios.get('/chat/api/conversations/'+id).then(response => {
           setConversations([...conversations,...response.data])
           // loadData(response.data[0])
           if(response.data.length > 0){
               let conversation = response.data[0]
-              console.log(conversation);
               setMessages(<MessageList  loading={isLoading} conversation={conversation} messages={conversation.messages} userId={id}/>);
           }
-          
       });
     }
 
@@ -67,7 +75,7 @@ export default function Messenger(props) {
                 <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
               ]}
             />
-            <Connected users={onlineUsers}  handleData={loadData} />
+            <Connected users={onlineUsers}  handleData={loadConnectedMessage} />
             <ConversationSearch />
             {
               conversations.map((conversation,index) =>{
